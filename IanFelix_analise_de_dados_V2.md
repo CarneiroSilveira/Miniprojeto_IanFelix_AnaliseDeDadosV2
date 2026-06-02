@@ -1,0 +1,1 @@
+# ScTec_Mini_Project
