@@ -21,3 +21,4 @@ def views_brutecsv_statistics(df: pd.DataFrame, nome = "DataFrame"):
         tipo = str(df[col].dtype)
         print(f"  {col:<18}| {tipo:<10} | {nulos[col]:<5} | {pct[col]}%")
     print("=" * 55)
+
