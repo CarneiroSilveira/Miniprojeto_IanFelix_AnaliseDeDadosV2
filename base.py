@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import utils.views_utils as Vutil
 import utils.func_utils as Futil
 
@@ -10,17 +9,40 @@ pd.set_option('display.float_format', '{:.2f}'.format)  # 2 casas decimais
 # importando as bibliotecas necessarias pro projeto 
 # O argumento sep=";" serve para que a separação das colunas do arquivo sejam defididas por ; que é o padrão dos arquivos .csv
 
+# =====================================
+# 1 - IMPORTANDO OS DADOS!
+# =====================================
+
 df = pd.read_csv("./Base-Varejo/Base-Varejo.csv",sep=";")
+
+# Remove colunas vazias criadas pelos ; extras
+df = df.loc[:, ~df.columns.str.contains("^Unnamed")]
+
+# =====================================
+# 2 - IDENTIFICANDO PROBLEMAS!
+# =====================================
 
 Vutil.views_brutecsv_statistics(df)
 
+# =====================================
+# 3 - LIMPANDO OS DADOS!
+# =====================================
+
 Futil.adjust_datatime(df)
-Futil.ajust_pr_cat(df)
 
 df = df.drop_duplicates()
 
-Futil.generic_treatment_of_text_columns(df)
-Futil.generic_treatment_of_number_columns(df)
+Futil.ajust_cat(df)
 
-print("Base de dados limpa!-----------")
-print(df.info())
+Futil.cleaning_converting_children_column(df)
+
+# =====================================
+# 4 - ESTATÍSTICA DESCRITIVA
+# =====================================
+
+Vutil.view_cleancsv_statistics(df)
+
+# =====================================
+# 5 - AGRUPAMENTOS
+# =====================================
+Vutil.grups(df)
